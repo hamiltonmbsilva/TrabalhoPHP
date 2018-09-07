@@ -8,7 +8,7 @@
 
 class fishermanInsurance
 {
-    private $idtb_fisherman_insurance;
+    private $id_tb_fisherman_insurance;
     private $str_month;
     private $str_year;
     private $db_value;
@@ -17,16 +17,16 @@ class fishermanInsurance
 
     /**
      * fishermanInsurance constructor.
-     * @param $idtb_fisherman_insurance
+     * @param $id_tb_fisherman_insurance
      * @param $str_month
      * @param $str_year
      * @param $db_value
      * @param $tb_beneficiaries_id_beneficiaries
      * @param $tb_city_id_city
      */
-    public function __construct($idtb_fisherman_insurance, $str_month, $str_year, $db_value, $tb_beneficiaries_id_beneficiaries, $tb_city_id_city)
+    public function __construct($id_tb_fisherman_insurance, $str_month, $str_year, $db_value, $tb_beneficiaries_id_beneficiaries, $tb_city_id_city)
     {
-        $this->idtb_fisherman_insurance = $idtb_fisherman_insurance;
+        $this->id_tb_fisherman_insurance = $id_tb_fisherman_insurance;
         $this->str_month = $str_month;
         $this->str_year = $str_year;
         $this->db_value = $db_value;
@@ -37,17 +37,17 @@ class fishermanInsurance
     /**
      * @return mixed
      */
-    public function getIdtbFishermanInsurance()
+    public function getIdTbFishermanInsurance()
     {
-        return $this->idtb_fisherman_insurance;
+        return $this->id_tb_fisherman_insurance;
     }
 
     /**
-     * @param mixed $idtb_fisherman_insurance
+     * @param mixed $id_tb_fisherman_insurance
      */
-    public function setIdtbFishermanInsurance($idtb_fisherman_insurance)
+    public function setIdTbFishermanInsurance($id_tb_fisherman_insurance)
     {
-        $this->idtb_fisherman_insurance = $idtb_fisherman_insurance;
+        $this->id_tb_fisherman_insurance = $id_tb_fisherman_insurance;
     }
 
     /**
@@ -129,8 +129,6 @@ class fishermanInsurance
     {
         $this->tb_city_id_city = $tb_city_id_city;
     }
-
-
 
 
 }
