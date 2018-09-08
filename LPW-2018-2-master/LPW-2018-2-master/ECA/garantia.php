@@ -19,7 +19,8 @@ $template->mainpanel();
 
 // Verificar se foi enviando dados via POST
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $id_garantia_safra = (isset($_POST["id_garantia_safra"]) && $_POST["id_garantia_safra"] != null) ? $_POST["id_garantia_safra"] : "";
+    $id = (isset($_POST["id"]) && $_POST["id"] != null) ? $_POST["id"] : "";
+//    $id_garantia_safra = (isset($_POST["id_garantia_safra"]) && $_POST["id_garantia_safra"] != null) ? $_POST["id_garantia_safra"] : "";
     $str_month = (isset($_POST["str_month"]) && $_POST["str_month"] != null) ? $_POST["str_month"] : "";
     $str_year = (isset($_POST["str_year"]) && $_POST["str_year"] != null) ? $_POST["str_year"] : "";
     $str_uf = (isset($_POST["str_uf"]) && $_POST["str_uf"] != null) ? $_POST["str_uf"] : "";
@@ -30,7 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $db_value = (isset($_POST["db_value"]) && $_POST["db_value"] != null) ? $_POST["db_value"] : "";
 } else if (!isset($id)) {
     // Se não se não foi setado nenhum valor para variável $id
-    $id_garantia_safra = (isset($_GET["id_garantia_safra"]) && $_GET["id_garantia_safra"] != null) ? $_GET["id_garantia_safra"] : "";
+    $id = (isset($_GET["id"]) && $_GET["id"] != null) ? $_GET["id"] : "";
+//    $id_garantia_safra = (isset($_GET["id_garantia_safra"]) && $_GET["id_garantia_safra"] != null) ? $_GET["id_garantia_safra"] : "";
     $str_month = NULL;
     $str_year = NULL;
     $str_uf = NULL;
@@ -42,12 +44,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 }
 
-if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "upd" && $id_garantia_safra != "") {
+if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "upd" && $id != "") {
 
     $cropquarantee = new cropquarantee($id, '', '',"","",'');
 
     $resultado = $object->atualizar($cropquarantee);
-    $id_garantia_safra = $resultado->getIdGarantiaSafra();
+//    $id_garantia_safra = $resultado->getIdGarantiaSafra();
     $str_month = $resultado->getStrMonth();
     $str_year = $resultado->getStrYear();
     $db_value = $resultado->getDbValue();
@@ -57,9 +59,9 @@ if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "upd" && $id_garantia_safra !
 }
 
 if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "save" && $str_month != "" && $str_year != "" && $db_value !="" && $tb_city_id_city !="" && $tb_beneficiaries_id_beneficiaries !="") {
-    $cropquarantee = new cropquarantee($id_garantia_safra, $str_month, $str_year, $db_value, $tb_city_id_city, $tb_beneficiaries_id_beneficiaries);
+    $cropquarantee = new cropquarantee($id, $str_month, $str_year, $db_value, $tb_city_id_city, $tb_beneficiaries_id_beneficiaries);
     $msg = $object->salvar($cropquarantee);
-    $id_garantia_safra = null;
+    $id = null;
     $str_year = null;
     $str_month = null;
     $db_value = null;
@@ -68,10 +70,10 @@ if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "save" && $str_month != "" &&
 
 }
 
-if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "del" && $id_garantia_safra != "") {
-    $cropquarantee = new cropquarantee($id_garantia_safra, '', '','','','');
+if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "del" && $id != "") {
+    $cropquarantee = new cropquarantee($id, '', '','','','');
     $msg = $object->remover($cropquarantee);
-    $id_garantia_safra = null;
+    $id = null;
 }
 
 ?>
@@ -90,10 +92,12 @@ if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "del" && $id_garantia_safra !
 
                         <form action="?act=save&id=" method="POST" name="form1">
 
-                            <input type="hidden" name="$id_garantia_safra" value="<?php
+                            <input type="hidden" name="$id" value="<?php
                             // Preenche o id no campo id com um valor "value"
-                            echo (isset($id_garantia_safra) && ($id_garantia_safra != null || $id_garantia_safra != "")) ? $id_garantia_safra : '';
+//                            echo (isset($id_garantia_safra) && ($id_garantia_safra != null || $id_garantia_safra != "")) ? $id_garantia_safra : '';
+                            echo (isset($id) && ($id != null || $id != "")) ? $id : '';
                             ?>"/>
+                            <br/>
                             Ano:
                             <input class="form-control" type="text" name="$str_year" maxlength="4" value="<?php
                             // Preenche o nome no campo nome com um valor "value"
@@ -105,6 +109,7 @@ if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "del" && $id_garantia_safra !
                             // Preenche o nome no campo nome com um valor "value"
                             echo (isset($str_year) && ($str_year != null || $str_year != "")) ? $str_year : '';
                             ?>"/>
+                            <br/>
                             UF:
                             <select class="form-control" name="tb_state_id_state">
                                 <?php
@@ -124,6 +129,7 @@ if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "del" && $id_garantia_safra !
                                 }
                                 ?>
                             </select>
+                            <br/>
                             Código Município SIAFI:
                             <select class="form-control" name="tb_city_id_city">
                                 <?php
@@ -143,7 +149,7 @@ if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "del" && $id_garantia_safra !
                                 }
                                 ?>
                             </select>
-
+                            <br/>
                             Nome Município SIAFI:
                             <select class="form-control" name="tb_city_id_city">
                                     <?php
@@ -163,7 +169,7 @@ if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "del" && $id_garantia_safra !
                                     }
                                     ?>
                             </select>
-
+                            <br/>
                             NIS Beneficiário :
                             <select class="form-control" name="tb_beneficiaries_id_beneficiaries">
                                 <?php
@@ -183,7 +189,7 @@ if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "del" && $id_garantia_safra !
                                 }
                                 ?>
                             </select>
-
+                            <br/>
                             Nome Beneficiário :
                             <select class="form-control" name="tb_beneficiaries_id_beneficiaries">
                                 <?php
@@ -203,13 +209,14 @@ if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "del" && $id_garantia_safra !
                                 }
                                 ?>
                             </select>
-
+                            <br/>
                             Valor Benefício:
                             <input class="form-control" type="text" maxlength="11" name="db_value" placeholder="Entre com so com numeros" value="<?php
                             // Preenche o sigla no campo sigla com um valor "value"
                             echo (isset($db_value) && ($db_value != null || $db_value != "")) ? $db_value : '';
                             ?>"/>
                             <br/>
+
                             <input class="btn btn-success" type="submit" value="REGISTER">
                             <hr>
                         </form>

@@ -8,6 +8,7 @@
     require_once "db/connection.php";
     require_once "classes/city.php";
     require_once "classes/beneficiaries.php";
+    require_once "classes/cropquarantee.php";
 
 class cropquaranteeDAO
 {
@@ -16,7 +17,7 @@ class cropquaranteeDAO
         global $pdo;
         try {
             $statement = $pdo->prepare("DELETE FROM td_crop_guarantee WHERE id_garantia_safra = :id");
-            $statement->bindValue(":id", $cropquarantee->getIdAction());
+            $statement->bindValue(":id", $cropquarantee->getIdGarantiaSafra());
             if ($statement->execute()) {
                 return "<script> alert('Registo foi excluído com êxito !'); </script>";
             } else {
@@ -34,16 +35,16 @@ class cropquaranteeDAO
             if ($cropquarantee->getIdAction() != "") {
                 $statement = $pdo->prepare("UPDATE td_crop_guarantee SET str_month=:str_month, str_year=:str_year, db_value=:db_value, 
             tb_city_id_city=:tb_city_id_city, tb_beneficiaries_id_beneficiaries=:tb_beneficiaries_id_beneficiaries WHERE id_garantia_safra = :id;");
-                $statement->bindValue(":id", $cropquarantee->getIdAction());
+                $statement->bindValue(":id", $cropquarantee->getIdGarantiaSafra());
             } else {
                 $statement = $pdo->prepare("INSERT INTO td_crop_guarantee (str_month, str_year, db_value, tb_city_id_city, tb_beneficiaries_id_beneficiaries) 
                   VALUES (:str_month, :str_year, :db_value, :tb_city_id_city, :tb_beneficiaries_id_beneficiaries)");
             }
-            $statement->bindValue(":str_month", $cropquarantee->getStrCodAction());
-            $statement->bindValue(":str_year", $cropquarantee->getStrNameAction());
-            $statement->bindValue(":db_value", $cropquarantee->getStrNameAction());
-            $statement->bindValue(":tb_city_id_city", $cropquarantee->getStrNameAction());
-            $statement->bindValue(":tb_beneficiaries_id_beneficiaries", $cropquarantee->getStrNameAction());
+            $statement->bindValue(":str_month", $cropquarantee->getStrMonth());
+            $statement->bindValue(":str_year", $cropquarantee->getStrYear());
+            $statement->bindValue(":db_value", $cropquarantee->getDbValue());
+            $statement->bindValue(":tb_city_id_city", $cropquarantee->getTbCityIdCity());
+            $statement->bindValue(":tb_beneficiaries_id_beneficiaries", $cropquarantee->getTbBeneficiariesIdBeneficiaries());
 
             if ($statement->execute()) {
                 if ($statement->rowCount() > 0) {
@@ -63,7 +64,7 @@ class cropquaranteeDAO
         global $pdo;
         try {
             $statement = $pdo->prepare("SELECT id_garantia_safra, str_month, str_year, db_value, tb_city_id_city, tb_beneficiaries_id_beneficiaries  FROM td_crop_guarantee WHERE id_garantia_safra = :id");
-            $statement->bindValue(":id", $cropquarantee->getIdCity());
+            $statement->bindValue(":id", $cropquarantee->getIdGarantiaSafra());
             if ($statement->execute()) {
                 $rs = $statement->fetch(PDO::FETCH_OBJ);
                 $cropquarantee->setIdGarantiaSafra($rs->id_garantia_safra);
@@ -91,7 +92,7 @@ class cropquaranteeDAO
 
         /* Constantes de configuração */
         define('QTDE_REGISTROS', 10);
-        define('RANGE_PAGINAS', 1);
+        define('RANGE_PAGINAS', 2);
 
         /* Recebe o número da página via parâmetro na URL */
         $pagina_atual = (isset($_GET['page']) && is_numeric($_GET['page'])) ? $_GET['page'] : 1;
