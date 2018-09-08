@@ -141,6 +141,12 @@ class Template
                         <p>Peti</p>
                     </a>
                 </li>
+                 <li>
+                    <a href='securelyclosed.php'>
+                        <i class=\"ti-user\"></i>
+                        <p>Seguro Defeso</p>
+                    </a>
+                </li>
                 <li>
                     <a href='files.php'>
                         <i class=\"ti-files\"></i>

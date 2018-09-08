@@ -108,15 +108,15 @@ class securelyclosedDAO
         $linha_inicial = ($pagina_atual - 1) * QTDE_REGISTROS;
 
         /* Instrução de consulta para paginação com MySQL */
-        $sql = "SELECT P.id_peti,P.str_benefit_situation, P.db_value_plot, P.str_month_reference,P.str_year_reference ,C.id_city, C.str_name_city, C.str_cod_siafi_city,B.id_beneficiaries, B.str_nis, B.str_name_person, T.id_state, T.str_uf  FROM tb_city C INNER JOIN tb_peti P ON C.id_city = P.tb_city_id_city 
-                INNER JOIN tb_beneficiaries As B ON B.id_beneficiaries = P.tb_beneficiaries_id_beneficiaries
+        $sql = "SELECT S.id_securely_closed,S.db_value_plot, S.str_month_refence, S.str_year_reference ,C.id_city, C.str_name_city, C.str_cod_siafi_city,B.id_beneficiaries,B.str_cpf, B.str_nis, B.str_name_person,B.int_rgp, T.id_state, T.str_uf  FROM tb_city C INNER JOIN tb_securely_closed S ON C.id_city = S.tb_city_id_city 
+                INNER JOIN tb_beneficiaries As B ON B.id_beneficiaries = S.tb_beneficiaries_id_beneficiaries
                 INNER JOIN tb_state  AS T ON T.id_state = C.tb_state_id_state LIMIT {$linha_inicial}, " . QTDE_REGISTROS;
         $statement = $pdo->prepare($sql);
         $statement->execute();
         $dados = $statement->fetchAll(PDO::FETCH_OBJ);
 
         /* Conta quantos registos existem na tabela */
-        $sqlContador = "SELECT COUNT(*) AS total_registros FROM tb_peti";
+        $sqlContador = "SELECT COUNT(*) AS total_registros FROM tb_securely_closed";
         $statement = $pdo->prepare($sqlContador);
         $statement->execute();
         $valor = $statement->fetch(PDO::FETCH_OBJ);
@@ -153,29 +153,31 @@ class securelyclosedDAO
         <th style='text-align: center; font-weight: bolder;'>Ano</th>
         <th style='text-align: center; font-weight: bolder;'>Mês</th>
         <th style='text-align: center; font-weight: bolder;'>UF</th>
-        <th style='text-align: center; font-weight: bolder;'>Código Siafi Municipio</th>
+        <th style='text-align: center; font-weight: bolder;'>Código Municipio Siafi</th>
         <th style='text-align: center; font-weight: bolder;'>Nome do Municipio</th>
-        <th style='text-align: center; font-weight: bolder;'>Nis do Favarecido</th>
-        <th style='text-align: center; font-weight: bolder;'>Nome do Favorecido</th>
-        <th style='text-align: center; font-weight: bolder;'>Situação do Beneficio</th>
+        <th style='text-align: center; font-weight: bolder;'>CPF do Favorecido</th>
+        <th style='text-align: center; font-weight: bolder;'>Nis do Favorecido</th>
+        <th style='text-align: center; font-weight: bolder;'>RG do Favorecido</th>
+        <th style='text-align: center; font-weight: bolder;'>Nome do Favorecido</th> 
         <th style='text-align: center; font-weight: bolder;'>Valor da Parcela</th>
         <th style='text-align: center; font-weight: bolder;' colspan='2'>Actions</th>
        </tr>
      </thead>
      <tbody>";
-            foreach ($dados as $peti):
+            foreach ($dados as $securely):
                 echo "<tr>        
-        <td style='text-align: center'>$peti->str_year_reference</td>
-        <td style='text-align: center'>$peti->str_month_reference</td>
-        <td style='text-align: center'>$peti->str_uf</td>
-        <td style='text-align: center'>$peti->str_cod_siafi_city</td>
-        <td style='text-align: center'>$peti->str_name_city</td>
-        <td style='text-align: center'>$peti->str_nis</td>
-        <td style='text-align: center'>$peti->str_name_person</td>
-        <td style='text-align: center'>$peti->str_benefit_situation</td>
-        <td style='text-align: center'>$peti->db_value_plot</td>
-        <td style='text-align: center'><a href='?act=upd&id=$peti->id_peti' title='Alterar'><i class='ti-reload'></i></a></td>
-        <td style='text-align: center'><a href='?act=del&id=$peti->id_peti' title='Remover'><i class='ti-close'></i></a></td>
+        <td style='text-align: center'>$securely->str_year_reference</td>
+        <td style='text-align: center'>$securely->str_month_refence</td>
+        <td style='text-align: center'>$securely->str_uf</td>
+        <td style='text-align: center'>$securely->str_cod_siafi_city</td>
+        <td style='text-align: center'>$securely->str_name_city</td>
+        <td style='text-align: center'>$securely->str_cpf</td>
+        <td style='text-align: center'>$securely->str_nis</td>
+        <td style='text-align: center'>$securely->int_rgp</td>
+        <td style='text-align: center'>$securely->str_name_person</td>
+        <td style='text-align: center'>$securely->db_value_plot</td>
+        <td style='text-align: center'><a href='?act=upd&id=$securely->id_securely_closed' title='Alterar'><i class='ti-reload'></i></a></td>
+        <td style='text-align: center'><a href='?act=del&id=$securely->id_securely_closed' title='Remover'><i class='ti-close'></i></a></td>
        </tr>";
             endforeach;
             echo "
