@@ -23,12 +23,14 @@ $template->sidebar();
 $template->mainpanel();
 
 
+
+
 // Verificar se foi enviando dados via POST
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = (isset($_POST["id"]) && $_POST["id"] != null) ? $_POST["id"] : "";
-//    $id_garantia_safra = (isset($_POST["id_garantia_safra"]) && $_POST["id_garantia_safra"] != null) ? $_POST["id_garantia_safra"] : "";
-    $str_month = (isset($_POST["str_month"]) && $_POST["str_month"] != null) ? $_POST["str_month"] : "";
-    $str_year = (isset($_POST["str_year"]) && $_POST["str_year"] != null) ? $_POST["str_year"] : "";
+
+    $str_month_reference = (isset($_POST["str_month_reference"]) && $_POST["str_month_reference"] != null) ? $_POST["str_month_reference"] : "";
+    $str_year_reference = (isset($_POST["str_year_reference"]) && $_POST["str_year_reference"] != null) ? $_POST["str_year_reference"] : "";
     $str_uf = (isset($_POST["str_uf"]) && $_POST["str_uf"] != null) ? $_POST["str_uf"] : "";
     $str_cod_siafi_city = (isset($_POST["str_cod_siafi_city"]) && $_POST["str_cod_siafi_city"] != null) ? $_POST["str_cod_siafi_city"] : "";
     $str_name_city = (isset($_POST["str_name_city"]) && $_POST["str_name_city"] != null) ? $_POST["str_name_city"] : "";
@@ -40,8 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Se não se não foi setado nenhum valor para variável $id
     $id = (isset($_GET["id"]) && $_GET["id"] != null) ? $_GET["id"] : "";
 //    $id_garantia_safra = (isset($_GET["id_garantia_safra"]) && $_GET["id_garantia_safra"] != null) ? $_GET["id_garantia_safra"] : "";
-    $str_month = NULL;
-    $str_year = NULL;
+    $str_month_reference = NULL;
+    $str_year_reference = NULL;
     $str_uf = NULL;
     $str_cod_siafi_city = NULL;
     $str_name_city = NULL;
@@ -58,29 +60,32 @@ if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "upd" && $id != "") {
 
     $resultado = $object->atualizar($peti);
     $str_benefit_situation = $resultado->getStrBenefitSituation();
-    $str_month = $resultado->getStrMonth();
-    $str_year = $resultado->getStrYear();
-    $db_value = $resultado->getDbValue();
+    $db_value_plot = $resultado->getDbValuePlot();
     $tb_city_id_city = $resultado->getTbCityIdCity();
     $tb_beneficiaries_id_beneficiaries = $resultado->getTbBeneficiariesIdBeneficiaries();
+    $str_month_reference = $resultado->getStrMonthReference();
+    $str_year_reference = $resultado->getStrYearReference();
+
 
 }
 
-if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "save" && $str_month != "" && $str_year != "" && $db_value !="" && $tb_city_id_city !="" && $tb_beneficiaries_id_beneficiaries !="") {
-    $cropquarantee = new cropquarantee($id, $str_month, $str_year, $db_value, $tb_city_id_city, $tb_beneficiaries_id_beneficiaries);
-    $msg = $object->salvar($cropquarantee);
+if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "save" &&  $str_benefit_situation != "" && $db_value_plot != "" && $str_month_reference !="" && $str_year_reference !="") {
+    $peti = new peti($id, $str_benefit_situation, $db_value_plot, $tb_city_id_city, $tb_beneficiaries_id_beneficiaries, $str_month_reference, $str_year_reference);
+    $msg = $object->salvar($peti);
     $id = null;
-    $str_year = null;
-    $str_month = null;
-    $db_value = null;
+    $str_benefit_situation = null;
+    $db_value_plot = null;
     $tb_city_id_city = null;
     $tb_beneficiaries_id_beneficiaries = null;
+    $str_month_reference = null;
+    $str_year_reference = null;
+
 
 }
 
 if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "del" && $id != "") {
-    $cropquarantee = new cropquarantee($id, '', '','','','');
-    $msg = $object->remover($cropquarantee);
+    $peti = new peti($id, '', '','','','','');
+    $msg = $object->remover($peti);
     $id = null;
 }
 
@@ -92,8 +97,8 @@ if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "del" && $id != "") {
             <div class='col-md-12'>
                 <div class='card'>
                     <div class='header'>
-                        <h4 class='title'>Garantia Safra</h4>
-                        <p class='category'>List of beneficiaries of the system</p>
+                        <h4 class='title'>Peti</h4>
+                        <p class='category'>Cadastro e lista de Peti no Sistema </p>
 
                     </div>
                     <div class='content table-responsive'>
@@ -107,15 +112,15 @@ if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "del" && $id != "") {
                             ?>"/>
                             <br/>
                             Ano:
-                            <input class="form-control" type="text" name="$str_year" maxlength="4" value="<?php
+                            <input class="form-control" type="text" name="$str_year_reference" maxlength="4" value="<?php
                             // Preenche o nome no campo nome com um valor "value"
-                            echo (isset($str_year) && ($str_year != null || $str_year != "")) ? $str_year : '';
+                            echo (isset($str_year_reference) && ($str_year_reference != null || $str_year_reference != "")) ? $str_year_reference : '';
                             ?>"/>
                             <br/>
                             Mês:
-                            <input class="form-control" type="text" name="$str_month" maxlength="2" value="<?php
+                            <input class="form-control" type="text" name="$str_month_reference" maxlength="2" value="<?php
                             // Preenche o nome no campo nome com um valor "value"
-                            echo (isset($str_year) && ($str_year != null || $str_year != "")) ? $str_year : '';
+                            echo (isset($str_month_reference) && ($str_month_reference != null || $str_month_reference != "")) ? $str_month_reference : '';
                             ?>"/>
                             <br/>
                             UF:
@@ -198,7 +203,7 @@ if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "del" && $id != "") {
                                 ?>
                             </select>
                             <br/>
-                            Nome Beneficiário :
+                            Nome Favorecido :
                             <select class="form-control" name="tb_beneficiaries_id_beneficiaries">
                                 <?php
                                 $query = "SELECT * FROM tb_beneficiaries order by str_name_person;";
@@ -218,10 +223,27 @@ if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "del" && $id != "") {
                                 ?>
                             </select>
                             <br/>
-                            Valor Benefício:
-                            <input class="form-control" type="text" maxlength="11" name="db_value" placeholder="Entre com so com numeros" value="<?php
+                            <Laber>Situação do Beneficio:</Laber>
+                            <?php
+
+                                    echo "<select class='form-control' name='str_benefit_situation'>
+                                        <option value='1'";
+                                    if(isset($str_benefit_situation) && ($str_benefit_situation != null || $str_benefit_situation != ""))
+                                        echo (($str_benefit_situation == 1) ? ' selected' : '');
+                                    echo ">Sacado</option>";
+                                    echo "<option value='0'";
+                                    if(isset($str_benefit_situation) && ($str_benefit_situation != null || $str_benefit_situation != ""))
+                                        echo (($str_benefit_situation == 0) ? ' selected' : '');
+                                    echo ">Não Sacado</option></select>";
+
+                            ?>
+
+                            <br/>
+
+                            VALOR PARCELA:
+                            <input class="form-control" type="text" maxlength="11" name="db_value_plot" placeholder="Entre com so com numeros" value="<?php
                             // Preenche o sigla no campo sigla com um valor "value"
-                            echo (isset($db_value) && ($db_value != null || $db_value != "")) ? $db_value : '';
+                            echo (isset($db_value_plot) && ($db_value_plot != null || $db_value_plot != "")) ? $db_value_plot : '';
                             ?>"/>
                             <br/>
 

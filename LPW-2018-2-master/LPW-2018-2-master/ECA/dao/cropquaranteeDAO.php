@@ -28,14 +28,13 @@ class cropquaranteeDAO
         }
     }
 
-//die(var_dump($cropquarantee));
 
     public function salvar($cropquarantee)
     {
 
         global $pdo;
         try {
-            if ($cropquarantee->getIdAction() != "") {
+            if ($cropquarantee->getIdGarantiaSafra() != "") {
                 $statement = $pdo->prepare("UPDATE td_crop_guarantee SET str_month=:str_month, str_year=:str_year, 
             db_value=:db_value, tb_city_id_city=:tb_city_id_city, tb_beneficiaries_id_beneficiaries=:tb_beneficiaries_id_beneficiaries
              WHERE id_garantia_safra = :id;");
@@ -98,7 +97,7 @@ class cropquaranteeDAO
 
         /* Constantes de configuração */
         define('QTDE_REGISTROS', 10);
-        define('RANGE_PAGINAS', 2);
+        define('RANGE_PAGINAS', 1);
 
         /* Recebe o número da página via parâmetro na URL */
         $pagina_atual = (isset($_GET['page']) && is_numeric($_GET['page'])) ? $_GET['page'] : 1;

@@ -34,7 +34,7 @@ class petiDAO
     {
         global $pdo;
         try {
-            if ($peti->getIdAction() != "") {
+            if ($peti->getIdPeti() != "") {
                 $statement = $pdo->prepare("UPDATE tb_peti SET str_benefit_situation=:str_benefit_situation, db_value_plot=:db_value_plot, tb_city_id_city=: tb_city_id_city, 
             tb_beneficiaries_id_beneficiaries=:tb_beneficiaries_id_beneficiaries, str_month_reference=:str_month_reference, str_year_reference=:str_year_reference WHERE id_peti = :id;");
                 $statement->bindValue(":id", $peti->getIdPeti());
