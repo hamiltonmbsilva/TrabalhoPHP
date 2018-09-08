@@ -130,9 +130,15 @@ class Template
                     </a>
                 </li>
                 <li>
-                    <a href='garantia.php'>
+                    <a href='cropquarantee.php'>
                         <i class=\"ti-user\"></i>
                         <p>Garantia Safra</p>
+                    </a>
+                </li>
+                <li>
+                    <a href='peti.php'>
+                        <i class=\"ti-user\"></i>
+                        <p>Peti</p>
                     </a>
                 </li>
                 <li>

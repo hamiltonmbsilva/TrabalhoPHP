@@ -28,16 +28,21 @@ class cropquaranteeDAO
         }
     }
 
+//die(var_dump($cropquarantee));
+
     public function salvar($cropquarantee)
     {
+
         global $pdo;
         try {
             if ($cropquarantee->getIdAction() != "") {
-                $statement = $pdo->prepare("UPDATE td_crop_guarantee SET str_month=:str_month, str_year=:str_year, db_value=:db_value, 
-            tb_city_id_city=:tb_city_id_city, tb_beneficiaries_id_beneficiaries=:tb_beneficiaries_id_beneficiaries WHERE id_garantia_safra = :id;");
+                $statement = $pdo->prepare("UPDATE td_crop_guarantee SET str_month=:str_month, str_year=:str_year, 
+            db_value=:db_value, tb_city_id_city=:tb_city_id_city, tb_beneficiaries_id_beneficiaries=:tb_beneficiaries_id_beneficiaries
+             WHERE id_garantia_safra = :id;");
                 $statement->bindValue(":id", $cropquarantee->getIdGarantiaSafra());
             } else {
-                $statement = $pdo->prepare("INSERT INTO td_crop_guarantee (str_month, str_year, db_value, tb_city_id_city, tb_beneficiaries_id_beneficiaries) 
+                $statement = $pdo->prepare("INSERT INTO td_crop_guarantee (str_month, str_year, db_value, tb_city_id_city, 
+            tb_beneficiaries_id_beneficiaries) 
                   VALUES (:str_month, :str_year, :db_value, :tb_city_id_city, :tb_beneficiaries_id_beneficiaries)");
             }
             $statement->bindValue(":str_month", $cropquarantee->getStrMonth());
@@ -63,7 +68,8 @@ class cropquaranteeDAO
     public function atualizar($cropquarantee){
         global $pdo;
         try {
-            $statement = $pdo->prepare("SELECT id_garantia_safra, str_month, str_year, db_value, tb_city_id_city, tb_beneficiaries_id_beneficiaries  FROM td_crop_guarantee WHERE id_garantia_safra = :id");
+            $statement = $pdo->prepare("SELECT id_garantia_safra, str_month, str_year, db_value, tb_city_id_city, 
+            tb_beneficiaries_id_beneficiaries  FROM td_crop_guarantee WHERE id_garantia_safra = :id");
             $statement->bindValue(":id", $cropquarantee->getIdGarantiaSafra());
             if ($statement->execute()) {
                 $rs = $statement->fetch(PDO::FETCH_OBJ);
@@ -101,7 +107,9 @@ class cropquaranteeDAO
         $linha_inicial = ($pagina_atual -1) * QTDE_REGISTROS;
 
         /* Instrução de consulta para paginação com MySQL */
-        $sql = "SELECT S.id_garantia_safra,S.str_month, S.str_year,S.db_value ,C.id_city, C.str_name_city, C.str_cod_siafi_city,B.id_beneficiaries, B.str_nis, B.str_name_person, T.id_state, T.str_uf AS UF   FROM tb_city C INNER JOIN td_crop_guarantee S ON C.id_city = S.tb_city_id_city 
+        $sql = "SELECT S.id_garantia_safra,S.str_month, S.str_year,S.db_value ,C.id_city, C.str_name_city, C.str_cod_siafi_city,
+        B.id_beneficiaries, B.str_nis, B.str_name_person, T.id_state, T.str_uf 
+        FROM tb_city C INNER JOIN td_crop_guarantee S ON C.id_city = S.tb_city_id_city 
                 INNER JOIN tb_beneficiaries As B ON B.id_beneficiaries = S.tb_beneficiaries_id_beneficiaries
                 INNER JOIN tb_state  AS T ON T.id_state = C.tb_state_id_state LIMIT {$linha_inicial}, " . QTDE_REGISTROS;
 
@@ -139,15 +147,16 @@ class cropquaranteeDAO
         /* Verifica se vai exibir o botão "Anterior" e "Último" */
         $exibir_botao_final = ($range_final > $pagina_atual) ? 'mostrar' : 'esconder';
             //Exemplo para debugar o sistema
-//        die(var_dump($dados));
+
+
         if (!empty($dados)):
             echo "
      <table class='table table-striped table-bordered'>
      <thead>
        <tr style='text-transform: uppercase;' class='active'>
-        <th style='text-align: center; font-weight: bolder;'>Code</th>
-        <th style='text-align: center; font-weight: bolder;'>Ano</th>
+    
         <th style='text-align: center; font-weight: bolder;'>Mês</th>
+        <th style='text-align: center; font-weight: bolder;'>Ano</th>
         <th style='text-align: center; font-weight: bolder;'>UF</th>
         <th style='text-align: center; font-weight: bolder;'>Código Município SIAFI</th>
         <th style='text-align: center; font-weight: bolder;'>Nome Município SIAFI</th>
@@ -160,12 +169,13 @@ class cropquaranteeDAO
      <tbody>";
             foreach ($dados as $cropquarantee):
                 echo "<tr>
-        <td style='text-align: center'>$cropquarantee->id_garantia_safra</td>
+
         <td style='text-align: center'>$cropquarantee->str_month</td>
-        <td style='text-align: center'>$cropquarantee->str_year</td>
+        <td style='text-align: center'>$cropquarantee->str_year</td>       
         <td style='text-align: center'>$cropquarantee->str_uf</td>
         <td style='text-align: center'>$cropquarantee->str_cod_siafi_city</td>
-        <td style='text-align: center'>$cropquarantee->str_name_city</td>
+        <td style='text-align: center'>$cropquarantee->str_name_city</td>   
+        <td style='text-align: center'>$cropquarantee->str_nis</td>    
         <td style='text-align: center'>$cropquarantee->str_name_person</td>
         <td style='text-align: center'>$cropquarantee->db_value</td>
         <td style='text-align: center'><a href='?act=upd&id=$cropquarantee->id_garantia_safra' title='Alterar'><i class='ti-reload'></i></a></td>
