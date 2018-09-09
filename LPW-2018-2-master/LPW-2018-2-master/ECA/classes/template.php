@@ -148,6 +148,12 @@ class Template
                     </a>
                 </li>
                 <li>
+                    <a href='familybaglooting.php'>
+                        <i class=\"ti-user\"></i>
+                        <p>Bolsa Fanilia Saques</p>
+                    </a>
+                </li>
+                <li>
                     <a href='files.php'>
                         <i class=\"ti-files\"></i>
                         <p>Files</p>
