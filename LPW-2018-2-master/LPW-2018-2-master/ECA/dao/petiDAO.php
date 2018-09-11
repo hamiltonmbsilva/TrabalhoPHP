@@ -40,7 +40,7 @@ class petiDAO
                 $statement->bindValue(":id", $peti->getIdPeti());
             } else {
                 $statement = $pdo->prepare("INSERT INTO tb_peti (str_benefit_situation, db_value_plot, tb_city_id_city, tb_beneficiaries_id_beneficiaries, str_month_reference, str_year_reference) 
-                  VALUES (:str_benefit_situation, :db_value_plot, :tb_city_id_city, :tb_beneficiaries_id_beneficiaries, :str_month_reference, :str_year_reference)");
+                  VALUES (:str_benefit_situation, :db_value_plot, :tb_city_id_city, :tb_beneficiaries_id_beneficiaries, :str_month_reference, :str_year_reference);");
             }
             $statement->bindValue(":str_benefit_situation", $peti->getStrBenefitSituation());
             $statement->bindValue(":db_value_plot", $peti->getDbValuePlot());
@@ -67,7 +67,8 @@ class petiDAO
     {
         global $pdo;
         try {
-            $statement = $pdo->prepare("SELECT id_peti, str_benefit_situation, db_value_plot, tb_city_id_city, tb_beneficiaries_id_beneficiaries, str_month_reference, str_year_reference FROM tb_peti WHERE id_peti = :id");
+            $statement = $pdo->prepare("SELECT id_peti, str_benefit_situation, db_value_plot, tb_city_id_city, 
+          tb_beneficiaries_id_beneficiaries, str_month_reference, str_year_reference FROM tb_peti WHERE id_peti = :id");
             $statement->bindValue(":id", $peti->getIdPeti());
             if ($statement->execute()) {
                 $rs = $statement->fetch(PDO::FETCH_OBJ);
@@ -79,7 +80,7 @@ class petiDAO
                 $peti->setStrMonthReference($rs->str_month_reference);
                 $peti->setStrYearReference($rs->str_year_reference);
 
-                return$peti;
+                return $peti;
             } else {
                 throw new PDOException("<script> alert('Não foi possível executar a declaração SQL !'); </script>");
             }

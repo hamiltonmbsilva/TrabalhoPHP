@@ -36,10 +36,10 @@ class securelyclosedDAO
             if ($securelyclosed->getIdSecurelyClosed() != "") {
                 $statement = $pdo->prepare("UPDATE tb_securely_closed SET db_value_plot=:db_value_plot, tb_city_id_city=:tb_city_id_city, tb_beneficiaries_id_beneficiaries=: tb_beneficiaries_id_beneficiaries, 
             str_month_refence=:str_month_refence, str_year_reference=:str_year_reference WHERE id_securely_closed = :id;");
-                $statement->bindValue(":id", $securelyclosed->getIdPetigetIdSecurelyClosed());
+                $statement->bindValue(":id", $securelyclosed->getIdSecurelyClosed());
             } else {
                 $statement = $pdo->prepare("INSERT INTO tb_securely_closed (db_value_plot, tb_city_id_city, tb_beneficiaries_id_beneficiaries, str_month_refence, str_year_reference) 
-                  VALUES (:db_value_plot, :tb_city_id_city, :tb_beneficiaries_id_beneficiaries, :str_month_refence, :str_year_reference)");
+                  VALUES (:db_value_plot, :tb_city_id_city, :tb_beneficiaries_id_beneficiaries, :str_month_refence, :str_year_reference);");
             }
             $statement->bindValue(":db_value_plot", $securelyclosed->getDbValuePlot());
             $statement->bindValue(":tb_city_id_city", $securelyclosed->getTbCityIdCity());
