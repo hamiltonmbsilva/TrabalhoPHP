@@ -31,6 +31,7 @@ class cropquaranteeDAO
 
     public function salvar($cropquarantee)
     {
+        var_dump($cropquarantee);
 
         global $pdo;
         try {
@@ -42,7 +43,7 @@ class cropquaranteeDAO
             } else {
                 $statement = $pdo->prepare("INSERT INTO td_crop_guarantee (str_month, str_year, db_value, tb_city_id_city, 
             tb_beneficiaries_id_beneficiaries) 
-                  VALUES (:str_month, :str_year, :db_value, :tb_city_id_city, :tb_beneficiaries_id_beneficiaries)");
+                  VALUES (:str_month, :str_year, :db_value, :tb_city_id_city, :tb_beneficiaries_id_beneficiaries);");
             }
             $statement->bindValue(":str_month", $cropquarantee->getStrMonth());
             $statement->bindValue(":str_year", $cropquarantee->getStrYear());
