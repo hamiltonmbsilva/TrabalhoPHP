@@ -41,7 +41,7 @@ class familybaglootingDAO
             } else {
                 $statement = $pdo->prepare("INSERT INTO td_familybag_looting (str_month_reference, str_year_reference, str_month_competence, str_year_competence, tb_city_id_city,
               tb_beneficiaries_id_beneficiaries, dt_date_withdrawal, db_saving_value) 
-                  VALUES (:str_month_reference, :str_year_reference, :str_month_competence, :str_year_competence, :tb_city_id_city, :tb_beneficiaries_id_beneficiaries, :dt_date_withdrawal, :db_saving_value)");
+                  VALUES (:str_month_reference, :str_year_reference, :str_month_competence, :str_year_competence, :tb_city_id_city, :tb_beneficiaries_id_beneficiaries, :dt_date_withdrawal, :db_saving_value);");
             }
             $statement->bindValue(":str_month_reference", $familybaglooting->getStrMonthReference());
             $statement->bindValue(":str_year_reference", $familybaglooting->getStrYearReference());
