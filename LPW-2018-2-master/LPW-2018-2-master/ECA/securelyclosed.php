@@ -101,13 +101,13 @@ if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "del" && $id != "") {
                             ?>"/>
                             <br/>
                             Ano:
-                            <input class="form-control" type="text" name="str_year_reference" maxlength="4" value="<?php
+                            <input class="form-control" type="number" name="str_year_reference" max="<?php echo date('Y');?>"  maxlength="4" value="<?php
                             // Preenche o nome no campo nome com um valor "value"
                             echo (isset($str_year_reference) && ($str_year_reference != null || $str_year_reference != "")) ? $str_year_reference : '';
                             ?>"/>
                             <br/>
                             Mês:
-                            <input class="form-control" type="text" name="str_month_refence" maxlength="2" value="<?php
+                            <input class="form-control" type="number"  min="1" max="12" name="str_month_refence"  maxlength="2"  value="<?php
                             // Preenche o nome no campo nome com um valor "value"
                             echo (isset($str_month_reference) && ($str_month_reference != null || $str_month_reference != "")) ? $str_month_reference : '';
                             ?>"/>
@@ -155,7 +155,7 @@ if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "del" && $id != "") {
                             <br/>
 
                             VALOR PARCELA:
-                            <input class="form-control" type="text" maxlength="11" name="db_value_plot" placeholder="Entre com so com numeros" value="<?php
+                            <input class="form-control" type="number" maxlength="11" name="db_value_plot" placeholder="Entre com so com numeros" value="<?php
                             // Preenche o sigla no campo sigla com um valor "value"
                             echo (isset($db_value_plot) && ($db_value_plot != null || $db_value_plot != "")) ? $db_value_plot : '';
                             ?>"/>

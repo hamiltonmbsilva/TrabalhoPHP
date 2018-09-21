@@ -34,7 +34,7 @@ class securelyclosedDAO
         global $pdo;
         try {
             if ($securelyclosed->getIdSecurelyClosed() != "") {
-                $statement = $pdo->prepare("UPDATE tb_securely_closed SET db_value_plot=:db_value_plot, tb_city_id_city=:tb_city_id_city, tb_beneficiaries_id_beneficiaries=: tb_beneficiaries_id_beneficiaries, 
+                $statement = $pdo->prepare("UPDATE tb_securely_closed SET db_value_plot=:db_value_plot, tb_city_id_city=:tb_city_id_city, tb_beneficiaries_id_beneficiaries=:tb_beneficiaries_id_beneficiaries, 
             str_month_refence=:str_month_refence, str_year_reference=:str_year_reference WHERE id_securely_closed = :id;");
                 $statement->bindValue(":id", $securelyclosed->getIdSecurelyClosed());
             } else {
@@ -150,13 +150,13 @@ class securelyclosedDAO
      <table class='table table-striped table-bordered'>
      <thead>
        <tr style='text-transform: uppercase;' class='active'>
-        <th style='text-align: center; font-weight: bolder;'>Ano</th>
-        <th style='text-align: center; font-weight: bolder;'>Mês</th>
+        <th style='text-align: center; font-weight: bolder;'>Ano e Mês</th>
+       <!-- <th style='text-align: center; font-weight: bolder;'>Mês</th>-->
         <th style='text-align: center; font-weight: bolder;'>UF</th>
-        <th style='text-align: center; font-weight: bolder;'>Código Municipio Siafi</th>
+       <!-- <th style='text-align: center; font-weight: bolder;'>Código Municipio Siafi</th>-->
         <th style='text-align: center; font-weight: bolder;'>Nome do Municipio</th>
         <th style='text-align: center; font-weight: bolder;'>CPF do Favorecido</th>
-        <th style='text-align: center; font-weight: bolder;'>Nis do Favorecido</th>
+        <!--<th style='text-align: center; font-weight: bolder;'>Nis do Favorecido</th>-->
         <th style='text-align: center; font-weight: bolder;'>RG do Favorecido</th>
         <th style='text-align: center; font-weight: bolder;'>Nome do Favorecido</th> 
         <th style='text-align: center; font-weight: bolder;'>Valor da Parcela</th>
@@ -165,17 +165,18 @@ class securelyclosedDAO
      </thead>
      <tbody>";
             foreach ($dados as $securely):
+                $valor = '$'.number_format($securely->db_value_plot,2,',','.');
                 echo "<tr>        
-        <td style='text-align: center'>$securely->str_year_reference</td>
-        <td style='text-align: center'>$securely->str_month_refence</td>
+        <td style='text-align: center'>$securely->str_month_refence / $securely->str_year_reference </td>
+        <!--<td style='text-align: center'>$securely->str_month_refence</td>-->
         <td style='text-align: center'>$securely->str_uf</td>
-        <td style='text-align: center'>$securely->str_cod_siafi_city</td>
+       <!-- <td style='text-align: center'>$securely->str_cod_siafi_city</td>-->
         <td style='text-align: center'>$securely->str_name_city</td>
         <td style='text-align: center'>$securely->str_cpf</td>
-        <td style='text-align: center'>$securely->str_nis</td>
+        <!--<td style='text-align: center'>$securely->str_nis</td>-->
         <td style='text-align: center'>$securely->int_rgp</td>
         <td style='text-align: center'>$securely->str_name_person</td>
-        <td style='text-align: center'>$securely->db_value_plot</td>
+        <td style='text-align: center'>$valor </td>
         <td style='text-align: center'><a href='?act=upd&id=$securely->id_securely_closed' title='Alterar'><i class='ti-reload'></i></a></td>
         <td style='text-align: center'><a href='?act=del&id=$securely->id_securely_closed' title='Remover'><i class='ti-close'></i></a></td>
        </tr>";

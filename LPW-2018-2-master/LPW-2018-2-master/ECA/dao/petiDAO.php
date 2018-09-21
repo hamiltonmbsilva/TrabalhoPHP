@@ -35,7 +35,7 @@ class petiDAO
         global $pdo;
         try {
             if ($peti->getIdPeti() != "") {
-                $statement = $pdo->prepare("UPDATE tb_peti SET str_benefit_situation=:str_benefit_situation, db_value_plot=:db_value_plot, tb_city_id_city=: tb_city_id_city, 
+                $statement = $pdo->prepare("UPDATE tb_peti SET str_benefit_situation=:str_benefit_situation, db_value_plot=:db_value_plot, tb_city_id_city=:tb_city_id_city, 
             tb_beneficiaries_id_beneficiaries=:tb_beneficiaries_id_beneficiaries, str_month_reference=:str_month_reference, str_year_reference=:str_year_reference WHERE id_peti = :id;");
                 $statement->bindValue(":id", $peti->getIdPeti());
             } else {
@@ -100,7 +100,7 @@ class petiDAO
 
         /* Constantes de configuração */
         define('QTDE_REGISTROS', 10);
-        define('RANGE_PAGINAS', 2);
+        define('RANGE_PAGINAS', 1);
 
         /* Recebe o número da página via parâmetro na URL */
         $pagina_atual = (isset($_GET['page']) && is_numeric($_GET['page'])) ? $_GET['page'] : 1;
@@ -151,12 +151,12 @@ class petiDAO
      <table class='table table-striped table-bordered'>
      <thead>
        <tr style='text-transform: uppercase;' class='active'>
-        <th style='text-align: center; font-weight: bolder;'>Ano</th>
-        <th style='text-align: center; font-weight: bolder;'>Mês</th>
+        <th style='text-align: center; font-weight: bolder;'>Ano e Mês </th>
+        <!--<th style='text-align: center; font-weight: bolder;'>Mês</th>-->
         <th style='text-align: center; font-weight: bolder;'>UF</th>
-        <th style='text-align: center; font-weight: bolder;'>Código Siafi Municipio</th>
+        <!--<th style='text-align: center; font-weight: bolder;'>Código Siafi Municipio</th>-->
         <th style='text-align: center; font-weight: bolder;'>Nome do Municipio</th>
-        <th style='text-align: center; font-weight: bolder;'>Nis do Favarecido</th>
+         <!--<th style='text-align: center; font-weight: bolder;'>Nis do Favarecido</th>-->
         <th style='text-align: center; font-weight: bolder;'>Nome do Favorecido</th>
         <th style='text-align: center; font-weight: bolder;'>Situação do Beneficio</th>
         <th style='text-align: center; font-weight: bolder;'>Valor da Parcela</th>
@@ -165,16 +165,17 @@ class petiDAO
      </thead>
      <tbody>";
             foreach ($dados as $peti):
+                $valor = '$'.number_format($peti->db_value_plot,2,',','.');
                 echo "<tr>        
-        <td style='text-align: center'>$peti->str_year_reference</td>
-        <td style='text-align: center'>$peti->str_month_reference</td>
+        <td style='text-align: center'>$peti->str_year_reference / $peti->str_month_reference</td>
+        <!--<td style='text-align: center'>$peti->str_month_reference</td>-->
         <td style='text-align: center'>$peti->str_uf</td>
-        <td style='text-align: center'>$peti->str_cod_siafi_city</td>
+        <!-- <td style='text-align: center'>$peti->str_cod_siafi_city</td>-->
         <td style='text-align: center'>$peti->str_name_city</td>
-        <td style='text-align: center'>$peti->str_nis</td>
+         <!--<td style='text-align: center'>$peti->str_nis</td>-->
         <td style='text-align: center'>$peti->str_name_person</td>
         <td style='text-align: center'>$peti->str_benefit_situation</td>
-        <td style='text-align: center'>$peti->db_value_plot</td>
+        <td style='text-align: center'> $valor</td>
         <td style='text-align: center'><a href='?act=upd&id=$peti->id_peti' title='Alterar'><i class='ti-reload'></i></a></td>
         <td style='text-align: center'><a href='?act=del&id=$peti->id_peti' title='Remover'><i class='ti-close'></i></a></td>
        </tr>";

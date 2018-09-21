@@ -138,7 +138,7 @@ class beneficiariesDAO
         <th style='text-align: center; font-weight: bolder;'>Nis</th>
         <th style='text-align: center; font-weight: bolder;'>Name</th>
         <th style='text-align: center; font-weight: bolder;'>CPF</th>
-        <th style='text-align: center; font-weight: bolder;'>RGP</th>
+        <th style='text-align: center; font-weight: bolder;'>RG</th>
         <th style='text-align: center; font-weight: bolder;' colspan='2'>Actions</th>
        </tr>
      </thead>

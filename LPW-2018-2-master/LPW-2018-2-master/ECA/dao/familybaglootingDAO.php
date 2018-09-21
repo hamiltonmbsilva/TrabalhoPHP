@@ -160,14 +160,14 @@ class familybaglootingDAO
      <table class='table table-striped table-bordered'>
      <thead>
        <tr style='text-transform: uppercase;' class='active'>
-        <th style='text-align: center; font-weight: bolder;'>Ano Refrência</th>
-        <th style='text-align: center; font-weight: bolder;'>Mês Refrência</th>
-        <th style='text-align: center; font-weight: bolder;'>Ano Compentência</th>
-        <th style='text-align: center; font-weight: bolder;'>Mês Compentência</th>
+        <th style='text-align: center; font-weight: bolder;'>Ano e Mês de Refrência</th>
+        <!-- <th style='text-align: center; font-weight: bolder;'>Mês Refrência</th> -->
+        <th style='text-align: center; font-weight: bolder;'>Ano e Mês de Compentência</th>
+       <!--  <th style='text-align: center; font-weight: bolder;'>Mês Compentência</th> -->
         <th style='text-align: center; font-weight: bolder;'>UF</th>
-        <th style='text-align: center; font-weight: bolder;'>Código Municipio Siafi</th>
+      <!--  <th style='text-align: center; font-weight: bolder;'>Código Municipio Siafi</th> -->
         <th style='text-align: center; font-weight: bolder;'>Nome do Municipio</th>
-        <th style='text-align: center; font-weight: bolder;'>Nis do Favorecido</th>
+       <!-- <th style='text-align: center; font-weight: bolder;'>Nis do Favorecido</th> -->
         <th style='text-align: center; font-weight: bolder;'>Nome do Favorecido</th>
         <th style='text-align: center; font-weight: bolder;'>Data do Saque</th>  
         <th style='text-align: center; font-weight: bolder;'>Valor da Parcela</th>
@@ -176,18 +176,19 @@ class familybaglootingDAO
      </thead>
      <tbody>";
             foreach ($dados as $family):
+                $valor = '$'.number_format($family->db_saving_value,2,',','.');
                 echo "<tr>        
-        <td style='text-align: center'>$family->str_month_reference</td>
-        <td style='text-align: center'>$family->str_year_reference</td>
-        <td style='text-align: center'>$family->str_month_competence</td>
-        <td style='text-align: center'>$family->str_year_competence</td>
+        <td style='text-align: center'>$family->str_month_reference / $family->str_year_reference</td>
+      <!--  <td style='text-align: center'>$family->str_year_reference</td> -->
+        <td style='text-align: center'>$family->str_month_competence / $family->str_year_competence</td>
+        <!--<td style='text-align: center'>$family->str_year_competence</td> -->
         <td style='text-align: center'>$family->str_uf</td>
-        <td style='text-align: center'>$family->str_cod_siafi_city</td>
+       <!-- <td style='text-align: center'>$family->str_cod_siafi_city</td>-->
         <td style='text-align: center'>$family->str_name_city</td>
-        <td style='text-align: center'>$family->str_nis</td>
+       <!-- <td style='text-align: center'>$family->str_nis</td>-->
         <td style='text-align: center'>$family->str_name_person</td>
         <td style='text-align: center'>$family->dt_date_withdrawal</td>
-        <td style='text-align: center'>$family->db_saving_value</td>
+        <td style='text-align: center'>$valor</td>
         <td style='text-align: center'><a href='?act=upd&id=$family->id_familybag_looting' title='Alterar'><i class='ti-reload'></i></a></td>
         <td style='text-align: center'><a href='?act=del&id=$family->id_familybag_looting' title='Remover'><i class='ti-close'></i></a></td>
        </tr>";

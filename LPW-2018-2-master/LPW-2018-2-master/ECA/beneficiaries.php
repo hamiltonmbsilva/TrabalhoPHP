@@ -90,16 +90,16 @@ if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "del" && $id != "") {
                             ?>"/>
                             <br/>
                             NIS:
-                            <input class="form-control" type="text" maxlength="11" name="str_nis" placeholder="Enter numbers only" value="<?php
+                            <input class="form-control" type="number" maxlength="11" name="str_nis" placeholder="Enter numbers only" value="<?php
                             // Preenche o sigla no campo sigla com um valor "value"
                             echo (isset($str_nis) && ($str_nis != null || $str_nis != "")) ? $str_nis : '';
                             ?>"/>
                             CPF:
-                            <input class="form-control" type="text" maxlength="14" name="str_cpf" value="<?php
+                            <input class="form-control" type="number" maxlength="14" name="str_cpf" value="<?php
                             // Preenche o sigla no campo sigla com um valor "value"
                             echo (isset($str_cpf) && ($str_cpf != null || $str_cpf != "")) ? $str_cpf : '';
                             ?>"/>
-                            RGP:
+                            RG:
                             <input class="form-control" type="text" maxlength="11" name="int_rgp" placeholder="Enter numbers only" value="<?php
                             // Preenche o sigla no campo sigla com um valor "value"
                             echo (isset($int_rgp) && ($int_rgp != null || $int_rgp != "")) ? $int_rgp : '';

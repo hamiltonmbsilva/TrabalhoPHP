@@ -31,7 +31,7 @@ class cropquaranteeDAO
 
     public function salvar($cropquarantee)
     {
-        var_dump($cropquarantee);
+
 
         global $pdo;
         try {
@@ -155,12 +155,12 @@ class cropquaranteeDAO
      <thead>
        <tr style='text-transform: uppercase;' class='active'>
     
-        <th style='text-align: center; font-weight: bolder;'>Mês</th>
-        <th style='text-align: center; font-weight: bolder;'>Ano</th>
+        <th style='text-align: center; font-weight: bolder;'>Mês e Ano</th>
+        <!--<th style='text-align: center; font-weight: bolder;'>Ano</th>-->
         <th style='text-align: center; font-weight: bolder;'>UF</th>
-        <th style='text-align: center; font-weight: bolder;'>Código Município SIAFI</th>
+        <!-- <th style='text-align: center; font-weight: bolder;'>Código Município SIAFI</th>-->
         <th style='text-align: center; font-weight: bolder;'>Nome Município SIAFI</th>
-        <th style='text-align: center; font-weight: bolder;'>NIS Beneficiário</th>
+        <!--<th style='text-align: center; font-weight: bolder;'>NIS Beneficiário</th>-->
         <th style='text-align: center; font-weight: bolder;'>Nome Beneficiário</th>
          <th style='text-align: center; font-weight: bolder;'>Valor Benefício</th>
         <th style='text-align: center; font-weight: bolder;' colspan='2'>Actions</th>
@@ -168,16 +168,17 @@ class cropquaranteeDAO
      </thead>
      <tbody>";
             foreach ($dados as $cropquarantee):
+                $valor = '$'.number_format($cropquarantee->db_value,2,',','.');
                 echo "<tr>
 
-        <td style='text-align: center'>$cropquarantee->str_month</td>
-        <td style='text-align: center'>$cropquarantee->str_year</td>       
+        <td style='text-align: center'>$cropquarantee->str_month / $cropquarantee->str_year</td>
+        <!--<td style='text-align: center'>$cropquarantee->str_year</td>-->       
         <td style='text-align: center'>$cropquarantee->str_uf</td>
-        <td style='text-align: center'>$cropquarantee->str_cod_siafi_city</td>
+        <!--<td style='text-align: center'>$cropquarantee->str_cod_siafi_city</td>-->
         <td style='text-align: center'>$cropquarantee->str_name_city</td>   
-        <td style='text-align: center'>$cropquarantee->str_nis</td>    
+        <!--<td style='text-align: center'>$cropquarantee->str_nis</td> -->   
         <td style='text-align: center'>$cropquarantee->str_name_person</td>
-        <td style='text-align: center'>$cropquarantee->db_value</td>
+        <td style='text-align: center'>$valor</td>
         <td style='text-align: center'><a href='?act=upd&id=$cropquarantee->id_garantia_safra' title='Alterar'><i class='ti-reload'></i></a></td>
         <td style='text-align: center'><a href='?act=del&id=$cropquarantee->id_garantia_safra' title='Remover'><i class='ti-close'></i></a></td>
        </tr>";

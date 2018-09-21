@@ -92,13 +92,13 @@ if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "del" ) {
                                 ?>"/>
                                 <br/>
                                 Ano:
-                                <input class="form-control" type="text" name="str_year" maxlength="4" value="<?php
+                                <input class="form-control" type="number" name="str_year" max="<?php echo date('Y');?>"  maxlength="4" value="<?php
                                 // Preenche o nome no campo nome com um valor "value"
                                 echo (isset($str_year) && ($str_year != null || $str_year != "")) ? $str_year : '';
                                 ?>"/>
                                 <br/>
                                 Mês:
-                                <input class="form-control" type="text" name="str_month" maxlength="2" value="<?php
+                                <input class="form-control" type="number" min="01" max="12" name="str_month" maxlength="2" value="<?php
                                 // Preenche o nome no campo nome com um valor "value"
                                 echo (isset($str_month) && ($str_month != null || $str_month != "")) ? $str_month : '';
                                 ?>"/>
@@ -147,7 +147,7 @@ if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "del" ) {
                                 <br/>
 
                                 Valor Benefício:
-                                <input class="form-control" type="text" maxlength="11" name="db_value"
+                                <input class="form-control" type="number" maxlength="11" name="db_value"
                                        placeholder="Entre com so com numeros" value="<?php
                                 // Preenche o sigla no campo sigla com um valor "value"
                                 echo (isset($db_value) && ($db_value != null || $db_value != "")) ? $db_value : '';

@@ -111,82 +111,82 @@ if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "del" && $id != "") {
                             ?>"/>
                             <br/>
                             Ano Referencia:
-                            <input class="form-control" type="text" name="str_year_reference" maxlength="4" value="<?php
+                            <input class="form-control" type="number" name="str_year_reference" max="<?php echo date('Y');?>" maxlength="4" value="<?php
                             // Preenche o nome no campo nome com um valor "value"
                             echo (isset($str_year_reference) && ($str_year_reference != null || $str_year_reference != "")) ? $str_year_reference : '';
                             ?>"/>
                             <br/>
                             Mês Referencia:
-                            <input class="form-control" type="text" name="str_month_reference" maxlength="2" value="<?php
+                            <input class="form-control" type="number" min="01" max="12" name="str_month_reference" maxlength="2" value="<?php
                             // Preenche o nome no campo nome com um valor "value"
                             echo (isset($str_month_reference) && ($str_month_reference != null || $str_month_reference != "")) ? $str_month_reference : '';
                             ?>"/>
                             <br/>
 
                             Ano Competencia:
-                            <input class="form-control" type="text" name="str_year_competence" maxlength="4" value="<?php
+                            <input class="form-control" type="number" name="str_year_competence" max="<?php echo date('Y');?>" maxlength="4" value="<?php
                             // Preenche o nome no campo nome com um valor "value"
                             echo (isset($str_year_competence) && ($str_year_competence != null || $str_year_competence != "")) ? $str_year_competence : '';
                             ?>"/>
                             <br/>
 
                             Mês Competencia:
-                            <input class="form-control" type="text" name="str_month_competence" maxlength="2" value="<?php
+                            <input class="form-control" type="number" min="01" max="12" name="str_month_competence" maxlength="2" value="<?php
                             // Preenche o nome no campo nome com um valor "value"
                             echo (isset($str_month_competence) && ($str_month_competence != null || $str_month_competence != "")) ? $str_month_competence : '';
                             ?>"/>
                             <br/>
 
-                            Código Município SIAFI:
-                            <select class="form-control" name="tb_city_id_city">
-                                <?php
-                                $query = "SELECT * FROM tb_city order by str_cod_siafi_city;";
-                                $statement = $pdo->prepare($query);
-                                if ($statement->execute()) {
-                                    $result = $statement->fetchAll(PDO::FETCH_OBJ);
-                                    foreach ($result as $rs) {
-                                        if ($rs->id_city == $tb_city_id_city) {
-                                            echo "<option value='$rs->id_city' selected>$rs->str_cod_siafi_city</option>";
-                                        } else {
-                                            echo "<option value='$rs->id_city'>$rs->str_cod_siafi_city</option>";
-                                        }
-                                    }
-                                } else {
-                                    throw new PDOException("<script> alert('Não foi possível executar a declaração SQL !'); </script>");
-                                }
-                                ?>
-                            </select>
-                            <br/>
-                            NIS Beneficiário :
-                            <select class="form-control" name="tb_beneficiaries_id_beneficiaries">
-                                <?php
-                                $query = "SELECT * FROM tb_beneficiaries order by str_nis;";
-                                $statement = $pdo->prepare($query);
-                                if ($statement->execute()) {
-                                    $result = $statement->fetchAll(PDO::FETCH_OBJ);
-                                    foreach ($result as $rs) {
-                                        if ($rs->id_beneficiaries == $tb_beneficiaries_id_beneficiaries) {
-                                            echo "<option value='$rs->id_beneficiaries' selected>$rs->str_nis</option>";
-                                        } else {
-                                            echo "<option value='$rs->id_beneficiaries'>$rs->str_nis</option>";
-                                        }
-                                    }
-                                } else {
-                                    throw new PDOException("<script> alert('Não foi possível executar a declaração SQL !'); </script>");
-                                }
-                                ?>
-                            </select>
-                            <br/>
+<!--                            Código Município SIAFI:-->
+<!--                            <select class="form-control" name="tb_city_id_city">-->
+<!--                                --><?php
+//                                $query = "SELECT * FROM tb_city order by str_cod_siafi_city;";
+//                                $statement = $pdo->prepare($query);
+//                                if ($statement->execute()) {
+//                                    $result = $statement->fetchAll(PDO::FETCH_OBJ);
+//                                    foreach ($result as $rs) {
+//                                        if ($rs->id_city == $tb_city_id_city) {
+//                                            echo "<option value='$rs->id_city' selected>$rs->str_cod_siafi_city</option>";
+//                                        } else {
+//                                            echo "<option value='$rs->id_city'>$rs->str_cod_siafi_city</option>";
+//                                        }
+//                                    }
+//                                } else {
+//                                    throw new PDOException("<script> alert('Não foi possível executar a declaração SQL !'); </script>");
+//                                }
+//                                ?>
+<!--                            </select>-->
+<!--                            <br/>-->
+<!--                            NIS Beneficiário :-->
+<!--                            <select class="form-control" name="tb_beneficiaries_id_beneficiaries">-->
+<!--                                --><?php
+//                                $query = "SELECT * FROM tb_beneficiaries order by str_nis;";
+//                                $statement = $pdo->prepare($query);
+//                                if ($statement->execute()) {
+//                                    $result = $statement->fetchAll(PDO::FETCH_OBJ);
+//                                    foreach ($result as $rs) {
+//                                        if ($rs->id_beneficiaries == $tb_beneficiaries_id_beneficiaries) {
+//                                            echo "<option value='$rs->id_beneficiaries' selected>$rs->str_nis</option>";
+//                                        } else {
+//                                            echo "<option value='$rs->id_beneficiaries'>$rs->str_nis</option>";
+//                                        }
+//                                    }
+//                                } else {
+//                                    throw new PDOException("<script> alert('Não foi possível executar a declaração SQL !'); </script>");
+//                                }
+//                                ?>
+<!--                            </select>-->
+<!--                            <br/>-->
 
                             Data Saque:
-                            <input class="form-control" type="text" maxlength="11" name="dt_date_withdrawal" value="<?php
+                            <input class="form-control" type="date" maxlength="11" name="dt_date_withdrawal" value="<?php
                             // Preenche o sigla no campo sigla com um valor "value"
                             echo (isset($dt_date_withdrawal) && ($dt_date_withdrawal != null || $dt_date_withdrawal != "")) ? $dt_date_withdrawal : '';
                             ?>"/>
                             <br/>
 
                             Valor Saque:
-                            <input class="form-control" type="text" maxlength="11" name="db_saving_value" value="<?php
+                            <input class="form-control" type="number" maxlength="11" name="db_saving_value" value="<?php
                             // Preenche o sigla no campo sigla com um valor "value"
                             echo (isset($db_saving_value) && ($db_saving_value != null || $db_saving_value != "")) ? $db_saving_value : '';
                             ?>"/>
